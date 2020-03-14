@@ -1,0 +1,27 @@
+apply plugin: 'groovy'
+apply plugin:'application'
+mainClassName = 'cz.zandak.Prostory'
+
+
+repositories {
+   mavenCentral()
+}
+
+dependencies {
+   implementation 'org.codehaus.groovy:groovy-all:2.5.9'
+   testImplementation  'junit:junit:4.12'
+}
+
+
+task uberjar( type: Jar, dependsOn: [':compileJava',':compileGroovy'] ) {
+	manifest {
+        attributes 'Main-Class': mainClassName
+    }
+	
+	// Our groovy classes
+     
+	from files(sourceSets.main.output.classesDirs)
+	// All groovy classes
+    from configurations.runtime.asFileTree.files.collect { jarTree(it) }
+}
+
