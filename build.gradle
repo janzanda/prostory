@@ -22,6 +22,6 @@ task uberjar( type: Jar, dependsOn: [':compileJava',':compileGroovy'] ) {
      
 	from files(sourceSets.main.output.classesDirs)
 	// All groovy classes
-    from configurations.runtime.asFileTree.files.collect { jarTree(it) }
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }       
 }
 
